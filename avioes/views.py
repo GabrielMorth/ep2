@@ -36,11 +36,6 @@ class AviaoDeleteView(generic.DeleteView):
     success_url = reverse_lazy('avioes:index')
     template_name = 'avioes/delete.html'
 
-def detail_category(request, category_id):
-category = get_object_or_404(Category, pk=category_id)
-context = {'object_list': category.posts.all(), 'category': category.name}
-return render(request, 'avioes/index.html', context)
-
 def create_comment(request, aviao_id):
     aviao = get_object_or_404(Post, pk=aviao_id)
     if request.method == 'POST':
@@ -58,3 +53,16 @@ def create_comment(request, aviao_id):
         form = CommentForm()
     context = {'form': form, 'aviao': aviao}
     return render(request, 'avioes/comment.html', context)
+
+
+
+class CategoriesListView(generic.ListView):
+    model = Category
+    template_name = 'avioes/categories.html'
+
+
+
+def detail_category(request, category_id):
+    category = get_object_or_404(Category, pk=category_id)
+    context = {'object_list': category.posts.all(), 'category': category.name}
+    return render(request, 'avioes/index.html', context)
