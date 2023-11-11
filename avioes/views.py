@@ -1,9 +1,13 @@
 from django.db.models import fields
 from django.http import HttpResponseRedirect, request
 from django.urls import reverse
+#from .temp_data import aviao_data
 from django.shortcuts import render, get_object_or_404
 from django.urls.base import reverse_lazy
 from django.views import generic
+
+from .models import Comment, Post, Category
+from .forms import CreateAviaoForm, UpdateAviaoForm, CommentForm
 
 class AviaoDetailView(generic.DetailView):
     model = Post
