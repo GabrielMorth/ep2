@@ -12,3 +12,18 @@ class Post(models.Model):
 
     def __str__(self):
         return f'{self.name} ({self.post_date})'
+    
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post,on_delete=models.CASCADE)
+    autor = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    text = models.CharField("Comentário",max_length=255)
+    post_date = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        ordering = ["-post_date"]
+
+    def __str__(self):
+        return f'{self.autor}: {self.text} ({self.post_date})'
