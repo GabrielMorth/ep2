@@ -35,3 +35,8 @@ class AviaoDeleteView(generic.DeleteView):
     model = Post
     success_url = reverse_lazy('avioes:index')
     template_name = 'avioes/delete.html'
+
+    def detail_category(request, category_id):
+    category = get_object_or_404(Category, pk=category_id)
+    context = {'object_list': category.posts.all(), 'category': category.name}
+    return render(request, 'avioes/index.html', context)
