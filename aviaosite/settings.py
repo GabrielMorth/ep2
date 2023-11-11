@@ -42,7 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'staticpages.apps.StaticpagesConfig',
     'avioes.apps.AvioesConfig',
+    'accounts.apps.AccountsConfig', #Add para fazer accounts
 ]
+
+LOGIN_REDIRECT_URL = 'index' #Add para fazer accounts
+LOGOUT_REDIRECT_URL = 'index'
 
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',

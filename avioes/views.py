@@ -45,7 +45,8 @@ def create_comment(request, aviao_id):
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
-            comment_author = form.cleaned_data['autor']
+            # comment_author = form.cleaned_data['autor']
+            comment_author = request.user
             comment_text = form.cleaned_data['text']
             comment = Comment(autor=comment_author,
                             text=comment_text,

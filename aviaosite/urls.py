@@ -20,4 +20,8 @@ urlpatterns = [
     path('', include('staticpages.urls')),
     path('avioes/', include('avioes.urls')),
     path('admin/', admin.site.urls),
+    
+    path('accounts/', include('accounts.urls')), # linha adicionada para fazer a account
+    path('accounts/', include('django.contrib.auth.urls')), # linha adicionada para fazer a account
+
 ]
