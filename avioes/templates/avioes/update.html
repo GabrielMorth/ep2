@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Atualizar Dados do avião "{{ object.name }}" (Postado em {{ object.post_date|date:"D d M Y"}})</h2>
+<form method="POST" action="{% url 'avioes:update' object.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Atualizar</button>
+</form>
+
+{% endblock content %}
