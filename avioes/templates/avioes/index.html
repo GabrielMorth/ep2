@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if category %}
+<h2>Todos os Aviões da Categoria {{category}}</h2>
+{% else %}
+<h2>Todos os Aviões</h2>
+{% endif %}
+<section>
+    <p>Quer contribuir para nosso acervo? <a href="{% url 'avioes:create' %}">Adicionar Novo avião</a></p>
+</section>
+{% if object_list %}
+<section class="lista-de-cards">
+    {% for post in object_list %}
+    <article class="card">
+        <a href="{% url 'avioes:detail' post.id %}"><img src="{{ post.poster_url }}"
+                alt="Poster do avião {{ post.name}}"></a>
+        <p>{{ post.name }} ({{ post.post_date|date:"D d M Y" }})</p>
+    </article>
+    {% endfor %}
+</section>
+{% else %}
+<p>Não foi encontrado nenhum avião.</p>
+{% endif %}
+{% endblock content %}
