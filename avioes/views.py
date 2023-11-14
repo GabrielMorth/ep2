@@ -41,3 +41,32 @@ class AviaoDeleteView(generic.DeleteView):
 
 
 
+class CategoriesListView(generic.ListView):
+    model = Category
+    template_name = 'avioes/categories.html'
+
+
+class CategoryDetailView(generic.DetailView):
+    model = Category
+    template_name = 'avioes/category.html'
+
+    
+@login_required
+def create_comment(request, aviao_id):
+    aviao = get_object_or_404(Post, pk=aviao_id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            # comment_author = form.cleaned_data['autor']
+            comment_author = request.user
+            comment_text = form.cleaned_data['text']
+            comment = Comment(autor=comment_author,
+                            text=comment_text,
+                            post=aviao)
+            comment.save()
+            return HttpResponseRedirect(
+                reverse('avioes:detail', args=(aviao_id, )))
+    else:
+        form = CommentForm()
+    context = {'form': form, 'aviao': aviao}
+    return render(request, 'avioes/comment.html', context)
