@@ -1,11 +1,10 @@
 from django.db.models import fields
 from django.http import HttpResponseRedirect, request
 from django.urls import reverse
-#from .temp_data import aviao_data
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls.base import reverse_lazy
 from django.views import generic
-
+from django.contrib.auth.decorators import login_required
 from .models import Comment, Post, Category
 from .forms import CreateAviaoForm, UpdateAviaoForm, CommentForm
 
@@ -40,34 +39,5 @@ class AviaoDeleteView(generic.DeleteView):
     success_url = reverse_lazy('avioes:index')
     template_name = 'avioes/delete.html'
 
-def create_comment(request, aviao_id):
-    aviao = get_object_or_404(Post, pk=aviao_id)
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            # comment_author = form.cleaned_data['autor']
-            comment_author = request.user
-            comment_text = form.cleaned_data['text']
-            comment = Comment(autor=comment_author,
-                            text=comment_text,
-                            post=aviao)
-            comment.save()
-            return HttpResponseRedirect(
-                reverse('avioes:detail', args=(aviao_id, )))
-    else:
-        form = CommentForm()
-    context = {'form': form, 'aviao': aviao}
-    return render(request, 'avioes/comment.html', context)
 
 
-
-class CategoriesListView(generic.ListView):
-    model = Category
-    template_name = 'avioes/categories.html'
-
-
-
-def detail_category(request, category_id):
-    category = get_object_or_404(Category, pk=category_id)
-    context = {'object_list': category.posts.all(), 'category': category.name}
-    return render(request, 'avioes/index.html', context)
