@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% if category %}
+{% if categoria %}
 <h2>Todos os Aviões da Categoria {{category}}</h2>
 {% else %}
 <h2>Todos os Aviões</h2>
@@ -9,9 +9,9 @@
 <section>
     <p>Quer contribuir para nosso acervo? <a href="{% url 'avioes:create' %}">Adicionar Novo avião</a></p>
 </section>
-{% if object_list %}
+{% if post_list %}
 <section class="lista-de-cards">
-    {% for post in object_list %}
+    {% for post in post_list %}
     <article class="card">
         <a href="{% url 'avioes:detail' post.id %}"><img src="{{ post.poster_url }}"
                 alt="Poster do avião {{ post.name}}"></a>

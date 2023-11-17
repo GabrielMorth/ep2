@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form action="{% url 'avioes:delete' object.id %}" method="post">
+<form action="{% url 'avioes:delete' post.id %}" method="post">
     {% csrf_token %}
     <p>
-        Você tem certeza que deseja apagar o avião "{{ object.name }}" postado em {{ object.post_date|date:"D d M Y" }}?
+        Você tem certeza que deseja apagar o avião "{{ post.name }}" postado em {{ post.post_date|date:"D d M Y" }}?
     </p>
     <button id="delete" type="submit">Apagar</button>
 </form>
-<button id="cancelar"><a id="cancelar" href="{% url 'avioes:detail' object.id %}">Cancelar</a></button>
+<button id="cancelar"><a id="cancelar" href="{% url 'avioes:detail' post.id %}">Cancelar</a></button>
 {% endblock content %}

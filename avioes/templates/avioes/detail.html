@@ -1,36 +1,41 @@
 {% extends 'base.html' %}
 
 {% block title %}
-{{ object.name }} ({{ object.post_date }}
+{{ post.name }} {{post.post_date}}
 {% endblock title %}
 
 {% block content %}
-<h2>{{ object.name }}</h2>
-<h3>{{object.caption}}</h3>
-<h4>Postado em {{ object.post_date }}</h4>
+<h2>{{ post.name }}</h2>
+<h3>{{post.caption}}</h3>
+<h4>Postado em {{ post.post_date}}</h4>
 
 <section class="detalhes">
-    <img id="poster" src="{{ object.poster_url }}" alt="Poster do aviao {{ object.name}}">
+    <img id="poster" src="{{ post.poster_url }}" alt="Poster do aviao {{ post.name}}">
     <h2>Instruções:</h2>
-    <img id="steps" src="{{ object.steps_url }}" alt="Instruções para fazer um(a) {{ object.name}}">
-    {% if object.category_set.all %}
-    <h4 class="tags">Incluso nas categorias:
-    {% for category in object.category_set.all %}
+    <img id="steps" src="{{ post.steps_url }}" alt="Instruções para fazer um(a) {{ post.name}}">
+
+
+    {% if post.category_set.all %}
+    <h4 class="tags"> Incluso nas categorias:
+    {% for category in post.category_set.all %}
         <li><a href="{% url 'avioes:category' category.id %}">{{ category.name }}</a></li>
     {% endfor %}</h4>
     {% endif %}
-    <h4><a href="{% url 'avioes:update' object.id %}">Editar publicação</a></h4>
-    <h4><a href="{% url 'avioes:delete' object.id %}">Deletar publicação</a></h4>
+    
+    <h4><a href="{% url 'avioes:update' pk=post.pk %}">Editar publicação</a></h4>
+    <h4><a href="{% url 'avioes:delete' pk=post.pk %}">Deletar publicação</a></h4>
+
 </section>
 
 
+{% if post.id %}
 <h2>
     Comentários
 </h2>
-    <h4><a href="{% url 'avioes:comment' object.pk %}">Adicionar comentário</a></h4>
+    <h4><a href="{% url 'avioes:comment' post.pk %}">Adicionar comentário</a></h4>
 
-    {% if object.comment_set.all %}
-        {% for comment in object.comment_set.all %}
+    {% if post.comment_set.all %}
+        {% for comment in post.comment_set.all %}
         <section class="comentario">
                 <h4>{{comment.autor}}:</h4><h6></h6>
                 <h4>{{comment.text}}</h4><h6> ({{comment.post_date|date:"D d M Y"}})</h6>
@@ -39,5 +44,6 @@
     {% else %}
     <p>Ainda não há nenhum comentário.</p>
     {% endif %}
+{% endif %}
 
 {% endblock content %}

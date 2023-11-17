@@ -17,6 +17,13 @@
         <h1>Aviões de Papel</h1>
         <nav id="navegacao-principal">
             <ul>
+                {% if user.is_authenticated %}
+                    <li> Logado com {{ user.username }} </li>
+                    <li><a href="{% url 'logout' %}">Log out</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Log in</a></li>
+                {% endif %}
+                
                 <li><a href="{% url 'avioes:index' %}">Aviões</a></li>
                 <li><a href="{% url 'avioes:categories' %}">Categorias</a></li>
                 <li><a href="{% url 'about' %}">Sobre</a></li>
