@@ -70,3 +70,18 @@ def create_comment(request, aviao_id):
         form = CommentForm()
     context = {'form': form, 'aviao': aviao}
     return render(request, 'avioes/comment.html', context)
+
+
+def criar_aviao(request):
+    if request.method == 'POST':
+        # Obtém os dados do POST (sem validação)
+        nome = request.POST.get('nome')
+        descricao = request.POST.get('caption')
+
+        # Cria um novo objeto Aviao (sem validação)
+        aviao = aviao.objects.create(nome=nome, descricao=descricao)
+
+        # Redireciona para a página de detalhes do novo avião
+        return redirect('avioes:detail', aviao_id=aviao.id)
+    else:
+        return render(request, 'avioes/create.html')
