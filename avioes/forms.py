@@ -1,5 +1,6 @@
 from django.forms import ModelForm
-from .models import Post, Comment
+from django import forms
+from .models import Post, Comment, Category
 
 class CreateAviaoForm(ModelForm):
     class Meta:
@@ -22,3 +23,8 @@ class CommentForm(ModelForm):
             'autor': 'Usuário',
             'text': 'Comentário',
         }
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ('name', 'description')

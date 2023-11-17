@@ -1,5 +1,5 @@
 from django.urls import path
-
+from django.contrib.auth import views as auth_views
 from . import views
 
 app_name = 'avioes'
@@ -11,4 +11,6 @@ urlpatterns = [
     path('delete/<int:pk>/', views.AviaoDeleteView.as_view(), name='delete'),
     path('<int:aviao_id>/comment/', views.create_comment, name='comment'),
     path('categories/', views.CategoriesListView.as_view(), name='categories'),
-    path('category/<int:category_id>/', views.detail_category, name='category'),]
+    path('category/<int:pk>', views.CategoryDetailView.as_view(), name='category'),
+    ]
+
