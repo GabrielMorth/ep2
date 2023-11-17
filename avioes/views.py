@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Comment, Post, Category
 from .forms import CreateAviaoForm, UpdateAviaoForm, CommentForm
 
+
 class AviaoDetailView(generic.DetailView):
     model = Post
     template_name = 'avioes/detail.html'
